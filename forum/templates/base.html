@@ -1,0 +1,51 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discussion Forum</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}" />
+</head>
+
+
+<body class="d-flex flex-column min-vh-100 bg-dark ">
+  
+  <header class="navbar">
+    <div class="navbar__brand">
+      <img class="navbar__logo" src="{% static 'images/logo.png' %}" alt="Discussion Forum" />Discussion Forum
+    </div>
+    <ul class="navbar__navigation">
+      <li class="navbar__navigation-item">
+        <a href="{% url 'home' %}" class="navbar__link">Dashboard</a>
+      </li>
+      <li class="navbar__navigation-item">
+        <a href="#" class="navbar__link">Profile</a>
+      </li>
+    </ul>
+    <span id="hello-msg"> Hello,{{request.user}}</span>
+    <span><a href="{% url 'logout' %}"> Logout</a></span>
+  </header>
+
+
+
+    {% block content %}
+    {% endblock %}
+
+
+    <footer class="footer">
+      <div class="footer__content">
+        <section class="left">
+          <a class="footer__item">Umut Aktaş &copy; All Rights Reserved</a>
+    
+
+        
+        </section>
+      </div>
+    </footer>
+
+</body>
+
+</html>
