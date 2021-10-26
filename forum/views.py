@@ -9,17 +9,24 @@ from django.contrib.auth.decorators import login_required # it is basically for 
 
 
 def registerpage(request):
-    form = CreateUserForm()
+    if request.user.is_authenticated:
+        return redirect('home')
+    else:
+        form = CreateUserForm()
 
-    if request.method == 'POST':
-        form = CreateUserForm(request.POST)
-        if form.is_valid():
-            form.save()
+        if request.method == 'POST':
+            form = CreateUserForm(request.POST)
+            if form.is_valid():
+                form.save()
+                user = form.cleaned_data.get('username')
+                messages.success(request,"Account created for"+ user)
+
+                return redirect("login")
 
 
 
-    context = {"form": form}
-    return render(request,"register.html",context)
+        context = {"form": form}
+        return render(request,"register.html",context)
 
 def loginPage(request):
 
@@ -44,7 +51,7 @@ def logoutUser(request):
     logout(request)
     return redirect("login")
 
-login_required()
+@login_required(login_url='login') #if a person not login this redirecting to login page
 def home(request):
 
     context = {}
