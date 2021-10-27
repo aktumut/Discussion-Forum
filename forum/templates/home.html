@@ -8,12 +8,13 @@
         <p class="lead">Welcome to my discussion forum. In this forum you are able to post your questions and answers for our AI discussions! <br> Wish you have wonderful time!!</p>
         <hr class="my-4">
         
-          <button class="btn btn-primary btn-lg" data-target="#questions" data-toggle="modal" role="button">Add Post</button>
+          <button class="btn btn-secondary btn-lg" data-target="#entry" data-toggle="modal" role="button">Add Post</button>
     </div>
     {% for post in posts %}
     <div class="container-fluid mt-10">
       <div class="row">
           <div class="col-md-12">
+            <!-- <form action="/" method="POST"> {% csrf_token %}-->
               <div class="card mb-4">
                   <div class="card-header">
                       <div class="media flex-wrap w-100 align-items-center"> 
@@ -21,18 +22,57 @@
                           </div>
                           <div class="text-muted small ml-3">
                             <div class="px-4 pt-3">{{post.timestamp}} </div>
+                            {% if post.user2 == user %}
+                            <button class="btn btn-warning btn-sm" data-target="#edit{{post.id}}" data-toggle="modal" role="button" name={{post.id}}>Edit Post</button>
+                            <button class="btn btn-danger btn-sm" data-target="#delete" data-toggle="modal" role="button">Delete Post</button>
                           </div>
+                            {% endif %}
                       </div>
                   </div>         
                   <div class="card-body">
                       <p>{{post.post_content}}</p>
                   </div>
-                  <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">                  
-                  </div>
               </div>
           </div>
       </div>
   </div>
+
+    <!-- Edit popup Bootstrap Modal Popup for entry -->
+    <div class="modal fade" id="edit{{post.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Your Entry</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            
+            <div class="modal-body">
+            <form action="/" method="POST"> {% csrf_token %}
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Post Your Entry Here</label>
+                <textarea class="form-control" id="content-edit-{{post.id}}" name="content-edit-{{post.id}}" rows="3">{{post.post_content}}</textarea>
+            </div>
+            </div>
+    
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" name="edit" value="{{post.id}}">Post</button>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">                  
+    </div>
+    </div>
+    
+    
+
+
+
+
+
   {% endfor %}
 
 </div>
@@ -43,8 +83,9 @@
 
 
 
+
 <!-- Bootstrap Modal Popup for entry -->
-<div class="modal fade" id="questions" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="entry" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -64,23 +105,21 @@
 
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Post</button>
+          <button type="submit" class="btn btn-primary" name="entry">Post</button>
         </div>
       </div>
     </div>
   </div>
     
-    {% block js %} <!-- inherit block style-->
+    {% block js %} <!-- inherit block style --- pop up for alert -->
     <script>
      {% if alert %}
-    alert('Your Question has been posted successfully!!');
+    alert('Your idea has been posted successfully!!');
     document.location = '/';
     {% endif %}
     </script>
-    
+ 
     {% endblock %}
-
-
 
 
 
