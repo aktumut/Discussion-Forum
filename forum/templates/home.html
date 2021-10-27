@@ -32,29 +32,29 @@
               </div>
           </div>
       </div>
+    </div>
         <div  class="container-fluid mt-10">
         
         <div class="row justify-content-left">
-                <button id= "like-trigger-button{{post.id}}" class="btn btn-success btn-sm" name="like" value="{{post.id}}" type="submit">Like 
+            <form action="/" method="POST"> {% csrf_token %}
+                <button id= "like-trigger-button{{post.id}}" class="btn btn-success btn-sm" name="like" value="{{post.id}}" type="submit">Like {{post.likes}}
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
                     <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
                 </svg></button>
-                
+            </form>    
                 {% if post.user2 == user %}
                 
                 <button id= "edit-trigger-button{{post.id}}" class="btn btn-warning btn-sm" data-target="#edit{{post.id}}" data-toggle="modal" role="button" name={{post.id}}>Edit</button>
-            
-            
                 <form action="/" method="POST"> {% csrf_token %}
                 <button id= "delete-trigger-button{{post.id}}" class="btn btn-danger btn-sm" name="delete" value="{{post.id}}" type="submit">Delete</button>
             </form>
-        
+    
         </div>
         </div>    
                 {% endif %}
-    
+            </div>
     </div>
-    
+</div>
 </div>
 
     <!-- Edit popup Bootstrap Modal Popup for entry -->

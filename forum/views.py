@@ -62,7 +62,7 @@ def home(request):
             user = request.user
             content = request.POST.get("content","")
             #taking user data from Post class
-            post = Post(user2 = user, post_content = content)
+            post = Post(user2 = user, post_content = content,likes = 0)
             post.save()
             alert = True #creating alert for limitations
             context = {'alert':alert}
@@ -78,6 +78,7 @@ def home(request):
             
             post = Post.objects.get(pk = post_id_)
             post.post_content = content
+            
             post.save()
             
             #Post.objects.delete(id=post_id)
@@ -91,6 +92,17 @@ def home(request):
             post_id_ =request.POST.get('delete','')
             post = Post.objects.get(pk = post_id_)
             post.delete()
+            alert = True
+            context = {'alert':alert}
+            return render(request,"home.html",context)
+
+        elif "like" in request.POST:
+            post_id_ =request.POST.get('like','')
+            post = Post.objects.get(pk = post_id_)
+            
+            post.likes = int(post.likes)+1
+            
+            post.save()
             alert = True
             context = {'alert':alert}
             return render(request,"home.html",context)
