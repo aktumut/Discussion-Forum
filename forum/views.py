@@ -69,14 +69,13 @@ def home(request):
             return render(request,"home.html",context)
         
         elif "edit" in request.POST:
-            #post = Post.objects.filter(id=myid).first()
-
+ 
             user = request.user
             #getting post_id for editing
             post_id_ =request.POST.get('edit','')
             
             content = request.POST.get("content-edit-"+str(post_id_),"")
-            print("content-edit-"+str(post_id_))
+            
             post = Post.objects.get(pk = post_id_)
             post.post_content = content
             post.save()
@@ -87,8 +86,14 @@ def home(request):
             context = {'alert':alert}
  
             return render(request,"home.html",context)
-    
 
+        elif "delete" in request.POST:
+            post_id_ =request.POST.get('delete','')
+            post = Post.objects.get(pk = post_id_)
+            post.delete()
+            alert = True
+            context = {'alert':alert}
+            return render(request,"home.html",context)
     
     posts = Post.objects.filter().order_by('-timestamp') #ordering post by timestamp
     context1 = {'posts':posts}

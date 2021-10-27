@@ -11,22 +11,25 @@
           <button class="btn btn-secondary btn-lg" data-target="#entry" data-toggle="modal" role="button">Add Post</button>
     </div>
     {% for post in posts %}
-    <div class="container-fluid mt-10">
+    <div class="container-fluid mt-10" >
       <div class="row">
           <div class="col-md-12">
             <!-- <form action="/" method="POST"> {% csrf_token %}-->
-              <div class="card mb-4">
+              <div class="card mb-4" >
                   <div class="card-header">
                       <div class="media flex-wrap w-100 align-items-center"> 
                           <div class="media-body ml-3"> <a data-abc="true">{{post.user2}}</a>
                           </div>
                           <div class="text-muted small ml-3">
-                            <div class="px-4 pt-3">{{post.timestamp}} </div>
+                            <div class="px-4 pt-3" >{{post.timestamp}} </div>
                             {% if post.user2 == user %}
-                            <button class="btn btn-warning btn-sm" data-target="#edit{{post.id}}" data-toggle="modal" role="button" name={{post.id}}>Edit Post</button>
-                            <button class="btn btn-danger btn-sm" data-target="#delete" data-toggle="modal" role="button">Delete Post</button>
-                          </div>
+                            <button id= "edit-trigger-button{{post.id}}" class="btn btn-warning btn-sm" data-target="#edit{{post.id}}" data-toggle="modal" role="button" name={{post.id}}>Edit Post</button>
+                            <form action="/" method="POST"> {% csrf_token %}
+                            <button id= "delete-trigger-button{{post.id}}" class="btn btn-danger btn-sm" name="delete" value="{{post.id}}" type="submit">Delete Post</button>
+                        </form>   
+                        </div>
                             {% endif %}
+
                       </div>
                   </div>         
                   <div class="card-body">
@@ -35,31 +38,43 @@
               </div>
           </div>
       </div>
+      <div  class="container">
+        <div class="row row-cols-1">
+            <div class="col-sm-3">
+                <button id= "like-trigger-button{{post.id}}" class="btn btn-success btn-sm" name="like" value="{{post.id}}" type="submit">Like 
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                    <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+                </svg></button>
+    </div>
+    </div>
+    </div>
   </div>
 
     <!-- Edit popup Bootstrap Modal Popup for entry -->
-    <div class="modal fade" id="edit{{post.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Your Entry</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+    <div class="modal fade {{post.id}}" id="edit{{post.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{post.id}}" aria-hidden="true">
+        <div class="modal-dialog"  role="document">
+        <div class="modal-content" >
+            <div class="modal-header" >
+            <h5 class="modal-title" >Your Entry</h5>
+            <button type="button"  class="close" data-dismiss="modal" aria-label="Close">
+                <span  aria-hidden="true">&times;</span>
             </button>
             </div>
             
             <div class="modal-body">
             <form action="/" method="POST"> {% csrf_token %}
             <div class="form-group">
-                <label for="exampleFormControlTextarea1">Post Your Entry Here</label>
+                <label for="exampleFormControlTextarea1" >Post Your Entry Here</label>
                 <textarea class="form-control" id="content-edit-{{post.id}}" name="content-edit-{{post.id}}" rows="3">{{post.post_content}}</textarea>
             </div>
             </div>
-    
+            
+
             <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary" name="edit" value="{{post.id}}">Post</button>
+            <button  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button  type="submit" class="btn btn-primary" name="edit" value="{{post.id}}">Post</button>
             </div>
+        </form>
         </div>
         </div>
     </div>
