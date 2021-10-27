@@ -6,6 +6,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import  messages
 from django.contrib.auth.decorators import login_required # it is basically for login required for accessing home page
 
+#for posts
+from .models import Post, Profile
 
 
 def registerpage(request):
@@ -44,7 +46,7 @@ def loginPage(request):
         else:
             messages.info(request,'Password or Username is incorrect')
             
-    context = {}
+    context = {} #just creating for further possible data/dictionary
     return render(request,"login.html",context)
 
 def logoutUser(request):
@@ -53,8 +55,23 @@ def logoutUser(request):
 
 @login_required(login_url='login') #if a person not login this redirecting to login page
 def home(request):
+    profile = Profile.objects.all()
 
-    context = {}
-    return render(request,"home.html",context)
+    if request.method == "POST":
+        user = request.user
+        content = request.POST.get("content","")
+        #taking user data from Post class
+        post = Post(user2 = user, post_content = content)
+        post.save()
+        alert = True #creating alert for limitations
+        context = {'alert':alert}
+        return render(request,"home.html",context)
+
+    
+    posts = Post.objects.filter().order_by('-timestamp') #ordering post by timestamp
+    context1 = {'posts':posts}
+    return render(request,"home.html",context1)
+
+
 
 
