@@ -81,8 +81,6 @@ def home(request):
             
             post.save()
             
-            #Post.objects.delete(id=post_id)
-
             alert = True
             context = {'alert':alert}
  

@@ -64,9 +64,7 @@ html {
 	  background-color: black;
   }
  
-  .d-flex {
-	  margin-top: 50px;
-  }
+ 
 
   .entry {
 	margin-top: 50px;
@@ -123,8 +121,4 @@ html {
 }
 .display-4, .lead {
 	color:white
-}
-.jumbotron {
-	background-color: black;
-
 }
