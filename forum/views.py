@@ -116,10 +116,9 @@ def home(request):
         elif "like" in request.POST:
             post_id_ =request.POST.get('like','')
             post = Post.objects.get(pk = post_id_)
-            
             post.likes = int(post.likes)+1
-            
             post.save()
+
             alert = True
             context = {'alert':alert}
             return render(request,"home.html",context)

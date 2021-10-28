@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+
+
 from pathlib import Path
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,7 +29,7 @@ SECRET_KEY = 'd9s7*9_-lp=3m*%_qwa&_u5e42e^z4gp+*$$!p@&5snd0gn!30'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["https://dforum.wn.r.appspot.com/","dforum.wn.r.appspot.com","dforum.wn.r.appspot.com","127.0.0.1","http://127.0.0.1"]
 
 
 # Application definition
@@ -80,6 +82,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'PASSWORD': 'aktumut',
     }
 }
 
