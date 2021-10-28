@@ -5,12 +5,13 @@ from .forms import CreateUserForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import  messages
 from django.contrib.auth.decorators import login_required # it is basically for login required for accessing home page
-
+from django.contrib.auth.models import User
 #for posts
 from .models import Post, Profile
 
 
 def registerpage(request):
+
     if request.user.is_authenticated:
         return redirect('home')
     else:
@@ -18,17 +19,35 @@ def registerpage(request):
 
         if request.method == 'POST':
             form = CreateUserForm(request.POST)
+            password1 = form.data.get('password1')
+            password2 = form.data.get('password2')
+            username = form.data.get('username')
+            print(password1,password2,username)
             if form.is_valid():
+                context = {"form": form}
                 form.save()
                 user = form.cleaned_data.get('username')
                 messages.success(request,"Account created for"+ user)
-
                 return redirect("login")
 
+            elif len(password1)<8:
+                messages.error(request,"Password should be longer then 8 digits")
+                context = {"form": form}
+                return render(request,"register.html",context)
 
+            elif password1 != password2:
+                messages.error(request,"Password doesn't match!")
+                context = {"form": form}
+                return render(request,"register.html",context)
 
-        context = {"form": form}
-        return render(request,"register.html",context)
+            elif not username.isalnum():
+                messages.error(request,"Username must contain only letters and numbers!")
+                context = {"form": form}
+                return render(request,"register.html",context)
+
+        else:
+            context = {"form": form}
+            return render(request,"register.html",context)
 
 def loginPage(request):
 

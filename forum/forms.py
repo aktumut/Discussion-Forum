@@ -8,4 +8,5 @@ from .models import Profile
 class CreateUserForm(UserCreationForm): #it is actually same form that Django gives but here I am replicating with our customize fields
     class Meta:
         model = User
-        fields = ['username','email','password1','password2'] #from the documentation I am taking these values 
+        fields = ['username', 'email', 'password1', 'password2'] #from the documentation I am taking these values 
+       

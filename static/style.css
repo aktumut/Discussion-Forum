@@ -66,23 +66,6 @@ html {
  
  
 
-  .entry {
-	margin-top: 50px;
-  }
-  
-  .entry__title {
-	display: inline;
-	font-size: 18px;
-  }
-  
-  .entry__date {
-	color: #5c6b70;
-  }
-  
-  .entry__content {
-	font-size: 16px;
-	line-height: 150%;
-  }
   
   .footer {
 	position: fixed;
