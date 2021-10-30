@@ -4,3 +4,10 @@ psycopg2-binary==2.9.1
 django-bootstrap-modal-forms==2.2.0
 django-widget-tweaks==1.4.2
 google-cloud-secret-manager==2.7.2
+
+gunicorn==20.1.0
+psycopg2-binary==2.8.6
+google-cloud-secret-manager==2.4.0
+google-auth==1.30.0
+django-storages[google]==1.11.1
+django-environ==0.4.5
