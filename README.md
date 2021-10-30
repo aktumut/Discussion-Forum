@@ -3,7 +3,9 @@
 ### Django Application Project
 
 
-**This program allows you following features;**
+**Please check the live [link](https://django-cloudrun-np2zvqbb3a-uc.a.run.app/) from google cloud!**
+
+This program allows you following features;
 
 - Create a post
 - Get a list of posts ordered by date of creation, information about the count of likes and like
